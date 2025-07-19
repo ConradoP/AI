@@ -1,7 +1,10 @@
 import gradio as gr
+import requests
 
-def greet(name):
-    return "Hello " + name + "!!"
+def responder(mensagem):
+    # aqui você chama a API do seu SaaS
+    r = requests.post("SUA_URL_DA_API", json={"prompt": mensagem})
+    return r.json().get("response", "Erro ou sem resposta")
 
-demo = gr.Interface(fn=greet, inputs="text", outputs="text")
-demo.launch()
+iface = gr.Interface(fn=responder, inputs="text", outputs="text")
+iface.launch()
